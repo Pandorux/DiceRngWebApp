@@ -1,6 +1,49 @@
 <style>
+    h1, h2, label {
+        color: #F54952;
+    }
+
     body {
-        background: linear-gradient(35deg, red, blue);
+        background-color: #341671;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    label {
+        text-transform: uppercase;
+        font-weight: 30;
+        text-align: left;
+        height: 5%;
+    }
+
+    td {
+        width: 1%;
+    }
+
+    input, textarea, select, button {
+        color: #341671;
+        border-style: none;
+        background-color: #F54952;
+        border-radius: 4px;
+        padding: 12px;
+    }
+
+    input:focus, textarea:focus {
+        color: #422680;
+        border-color: #AE2D68;
+        background-color: #AE2D68;
+        border-style: groove;
+    }    
+
+    input[type=number], select {
+        width: 22.5%;
+    }
+
+    input[type=submit] {
+        padding: 12px 20px;
+        float: right;
     }
 </style>
 
@@ -13,22 +56,47 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Dicey Dice Rolls</h1>
+    <div>
+        <h1>Dicey Dice Rolls</h1>
+    </div>
 
-    <form method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
-        <input type="number" placeholder="Number of dice" id="num-of-dice">
-        <label for="num-of-sides">
-            <input type="number" placeholder="Number of dice sides">
-        </label>
-        <button type="submit">Time to Roll</button>
+    <div id="questions">
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
+            <table>
+                <tr>
+                    <td>
+                        <label for="num-of-dice">Total Number of Dice</label>
+                    </td>
+                    <td>
+                        <input type="number" id="num-of-dice" value="0" max="99" min="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="num-of-sides">Total Sides of Dice</label>
+                    </td>
+                    <td>
+                        <select name="num-of-sides" id="">
+                            <option value="4">D4</option>
+                            <option value="6">D6</option>
+                            <option value="8">D8</option>
+                            <option value="10">D10</option>
+                            <option value="12">D12</option>
+                            <option value="20">D20</option>
+                        </select>
+                    </td>
+                </tr>
+            </table> 
+            
+            <br>
+            <button type="submit" name="submit">Time to Roll</button>
+            <br><br>
+        </form>
+    </div>
+    
+    <div id="answers">
         <h2>Results</h2>
         <textarea name="results" id="results" cols="30" rows="10"></textarea>
-    </form>
-
-    <?php
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            echo "IT FUCKING WORKS"
-        }
-    ?>
+    </div>
 </body>
 </html>
