@@ -68,7 +68,7 @@
                         <label for="num-of-dice">Total Number of Dice</label>
                     </td>
                     <td>
-                        <input type="number" id="num-of-dice" value="0" max="99" min="0">
+                        <input type="number" name="num-of-dice" id="num-of-dice" value="0" max="99" min="0">
                     </td>
                 </tr>
                 <tr>
@@ -76,7 +76,7 @@
                         <label for="num-of-sides">Total Sides of Dice</label>
                     </td>
                     <td>
-                        <select name="num-of-sides" id="">
+                        <select name="num-of-sides" id="num-of-sides">
                             <option value="4">D4</option>
                             <option value="6">D6</option>
                             <option value="8">D8</option>
@@ -89,14 +89,60 @@
             </table> 
             
             <br>
-            <button type="submit" name="submit">Time to Roll</button>
+            <button type="button" onclick="formSubmit()" name="submit">Time to Roll</button>
             <br><br>
         </form>
     </div>
     
     <div id="answers">
         <h2>Results</h2>
-        <textarea name="results" id="results" cols="30" rows="10"></textarea>
+        <textarea name="results" id="results" cols="30" rows="10">Click the button to get results!</textarea>
     </div>
+
+    <script>
+
+        // Is this a JS Lambda? I think so
+        const random = (min = 0, max = 50) => {
+            let num = Math.random() * (max - min) + min;
+
+            return Math.round(num);
+        };
+
+        function formSubmit() {
+            var numOfDice = document.getElementById("num-of-dice").value;
+            var numOfSides = document.getElementById("num-of-sides").value;
+
+            if(numOfDice == 0)
+            {
+                document.getElementById("results").value = "You can't get results with zero rolls, dummy! Try again..."
+            }
+            else 
+            {
+                document.getElementById("results").value = getResults(numOfDice, numOfSides);
+            }
+            
+        }
+
+        function getResults(totalRolls, totalSides) {
+            
+            var resultsHtml = `${totalRolls} rolls with a D${totalSides} die:`
+            
+            // SPACING!!!!!!
+            resultsHtml += "\n\n"
+
+            for(i = 1; i <= totalRolls; i++) {
+                resultsHtml += `Roll ${i}\t landed on ${rollDie(totalSides)}\n`
+            }
+
+            resultsHtml += "\n\nALL ROLLS HAVE BEEN COMPLETED!"
+
+            return resultsHtml;
+        }
+
+        function rollDie(totalSides) {
+            return random(1, totalSides);
+        }
+
+    </script>
 </body>
 </html>
